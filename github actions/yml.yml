@@ -1,0 +1,22 @@
+name: CI  // workflow의 이름
+
+on: // event 설정
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+jobs: // job 목록 기술
+  build:  // job의 이름
+    runs-on: ubuntu-latest  // runner가 실행되는 환경
+    steps:  // build라는 job의 step 목록
+      - uses: actions/checkout@v2 // uses로 action 불러오기, check-out이라는 action 실행
+                                  // uses로 사용한다는 것은, Github Actions에서 제공하는
+
+      - name: Run a one-line script // 실행되는 커맨드로 workflow에 표시된다.
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |  // 여러개 커맨드를 지정 가능하다.
+          echo Add other actions to build,
+          echo test, and deploy your project.
