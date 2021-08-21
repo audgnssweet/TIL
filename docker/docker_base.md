@@ -31,4 +31,6 @@ https://docs.docker.com/ - Docker Docs
 
     Docker Desktop에서 Container안의 Process가 뱉는 로그를 확인할 수 있다.
 
+    Docker Hub에서 해당 Image에 대한 Quick Totorial을 볼 수 있다.
+
     
