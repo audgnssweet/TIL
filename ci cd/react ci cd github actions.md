@@ -25,6 +25,8 @@
 
     sudo apt-get install nginx -y
 
+    (nginx 삭제는) sudo apt-get purge -y nginx*
+
     2. Nginx 설정파일을 변경해준다.
     
     ubuntu Linux기준, nginx의 설정파일은 
@@ -42,6 +44,12 @@
 
     즉, 변경된 설정에서는 nginx의 기본포트인 80번 포트로 접근시 
     react app이 build된 build폴더 안의 (java로 치면 main이라 할 수 있는) index.html을 제공하는 것이다.
+
+    또 하나 중요한 것은
+    location / {
+        try_files $uri /index.html;
+    }
+    위처럼 try_files 옵션에 /index.html 로 react app으로 돌려주어야 한다는 것이다.
 
     3. 설정파일이 잘 적용될 수 있는지 확인한다
 
