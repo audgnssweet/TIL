@@ -1,0 +1,67 @@
+name: EXAM CD YML FILE
+
+on:
+  pull_request:
+    types: [ closed ]
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    name: build and zip
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: install dependencies
+        run: npm install
+
+      - name: install react-monent
+        run: yarn add react-moment
+
+      - name: install moment-timezone
+        run: yarn add moment-timezone
+
+      - name: npm build:prd
+        run: CI= npm run build:prd
+
+      - name: Make zip file
+        run: zip -r exam.zip build appspec.yml scripts
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_KEY}}
+          aws-region: ${{secrets.AWS_REGION}}
+
+      - name: S3 Upload
+        run: aws s3 cp exam.zip s3://${{secrets.AWS_BUCKET}}
+
+  deploy:
+    needs: build
+    name: deploy to ec2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_KEY}}
+          aws-region: ${{secrets.AWS_REGION}}
+
+      - name: Code Deploy
+        run: aws deploy create-deployment --application-name exam-frontend-prd --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name exam-frontend-prd-deploy-group --s3-location bucket=${{secrets.AWS_BUCKET}},bundleType=zip,key=exam-frontend-prd.zip --region ${{secrets.AWS_REGION}} --file-exists-behavior OVERWRITE
