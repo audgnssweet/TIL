@@ -11,6 +11,8 @@
 
     2. 설정파일을 추가해준다.
 
+```kotlin
+
     @Configuration
     @EnableOpenApi
     class SwaggerConfig {
@@ -36,7 +38,7 @@
         }
     }
 
----
+```
 
 ![image](https://user-images.githubusercontent.com/19279163/131513891-08d38db9-903e-4f25-b06d-6973738e55af.png)
 
