@@ -22,6 +22,8 @@
 
 <h5> 코드를 보자 </h5>
 
+```kotlin
+
     @ControllerAdvice
     class CustomResponseBodyAdvice<T> : ResponseBodyAdvice<T> {
 
@@ -41,6 +43,8 @@
             return body
         }
     }
+
+```
 
     1. returnType.containingClass를 통해 어떤 Controller에서 method가 반환되는지 판별 가능하다.
     2. response의 headers나 body 자체를 원하는대로 조작해준다.
