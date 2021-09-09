@@ -66,6 +66,8 @@ spring:
 
 #### OSIV를 끈 상태로 복잡성 관리하기
 
+![image](https://user-images.githubusercontent.com/19279163/132636574-d6ee404c-398b-43e6-a11c-39046c2aa744.png)
+
     핵심 Service에서 Lazy Loading을 처리하는 것은, Service의 복잡성을 늘릴 뿐 아니라 코드도 길어진다.
 
     그래서 
