@@ -15,6 +15,7 @@
     해보자
 
 ```java
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -22,6 +23,9 @@ public class MyEntity implements Persistable<String> {
 
     @Id
     private String id;
+
+    @CreatedDate
+    private LocalDateTime createdDate;
 
     @Override
     public boolean isNew() {
