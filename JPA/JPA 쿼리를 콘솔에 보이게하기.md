@@ -4,10 +4,9 @@
 
 spring:
   jpa:
-    properties.hibernate:
-      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-      format_sql: true
     show-sql: true
+    properties.hibernate:
+      format_sql: true
 
 ```
 
