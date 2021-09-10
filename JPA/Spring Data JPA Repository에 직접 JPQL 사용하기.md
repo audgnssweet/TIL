@@ -38,6 +38,8 @@
     d. 엔티티의 특정 컬럼 컬렉션
     
     참고로 리스트는 없는 경우에 null이 아니라 빈 collection을 반환한다.
+    또한 Optional 로 설정해주면 spring data에서 자동으로 optional로 감싸서 반환해준다.
+    (Entity Manager 직접사용시 따로 감싸서 반환해주어야 한다)
     
     3. DTO로 바로 조회 가능
 
