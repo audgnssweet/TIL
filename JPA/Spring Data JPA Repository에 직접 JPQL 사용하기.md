@@ -6,6 +6,9 @@
     복잡한 정적쿼리의 경우 직접 JPQL을 사용하여 편리하게 해결할 수 있다.
     그러나 QueryDSL을 사용하는 것도 좋다.
 
+    JPQL을 사용하면 DB 종류에 상관없이 JPA에서 쿼리를 만들어주기 때문에
+    yml에 dialect만 잘 설정해주면 된다.
+
 ```java
     @Query("select m from Member m where m.username = :username and m.age = :age")
     List<Member> findUser(@Param("username") String username, @Param("age") int age);
