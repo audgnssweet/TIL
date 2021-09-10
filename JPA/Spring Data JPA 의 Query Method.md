@@ -15,6 +15,9 @@
     강력하고 편리한 기능이지만, 조건이 2개가 넘어가고 복잡해지면 함수 이름이 너무 길어지는 단점이 있다.
     그래서 조건이 여러개인 복잡한 쿼리는 JPQL을 사용하거나 QueryDSL로 처리하자.
 
+    [참고]
+    JPA의 NamedQuery랑 Query Method랑은 다른거다.
+
 ---
 
     Query Method는 Method의 이름만 잘 지어주면, Spring Data JPA에서 그에 맞춰서 JPQL을 생성해주는 아주 강력한 기능이다.
