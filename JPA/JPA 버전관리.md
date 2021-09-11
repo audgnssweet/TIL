@@ -50,7 +50,8 @@ public class Member extends BaseEntity {
     자동으로 버전관리가 된다.
     처음에 영속화 되었을 때 0이었다가, 수정 될 때마다 1씩 증가한다.
 
-    연관관계의 경우에는 연관관계의 주인 필드에서 수정
+    연관관계의 경우에는 각자의 필드를 수정하는 것으로는, 각자의 버전만 업데이트 된다.
+    그러나 연관관계 필드 자체가 바뀌는경우 (FK) 에는 연관관계의 주인 버전만 업데이트 된다.
 
     또한 총 3번의 쿼리가 나갔음을 알 수 있는데, 주의해서 볼 것은
     두 번째 update 쿼리이다. 마지막에 where문에 version이 추가되었음을 알 수 있다.
@@ -102,3 +103,7 @@ public class Member extends BaseEntity {
     first에서 update 하려 했으나, version이 맞지 않아 다시 select 해서 version확인 후 에러 발생
 
     순으로 잘 실행되었다.
+
+---
+
+    
