@@ -8,6 +8,10 @@
     1. 낙관적 Lock
     2. 비관적 Lock
 
+    [참고]
+    기본적으로 Read-commited 격리수준과 Optimistic Lock 을 권장하고 (동시성)
+    정보가 매우중요한 경우에만 Pessimistic Lock을 사용하자.
+
     알아보자.
 
 #### 낙관적 Lock (OPTIMISTIC_LOCK)
