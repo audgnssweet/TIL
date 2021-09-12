@@ -26,7 +26,7 @@ List<Member> findLockByUsername(String username);
 
     2. 더하여 LockMode.OPTIMISTIC 을 걸어주면,
     앞에서와 달리 데이터의 수정이 없이 조회만 했을 때도 Version Check를 하여 
-    트랜잭션이 종료되는 시점에 Version이 다르면 Exception을 발생시킨다.
+    트랜잭션이 종료되는 시점에 Select쿼리를 통해 Version이 다르면 Exception을 발생시킨다.
     -> Dirty Read와 Non-repeatable Read를 방지한다.
 
     3. LockMode.FORCE_INCRENENT
@@ -36,4 +36,8 @@ List<Member> findLockByUsername(String username);
     하지만 Version이 업데이트 된 것이나 다름 없다.
     이럴 때 LockMode를 걸어주면 트랜잭션 Commit 시점에 글의 Version도 증가한다.
 
-## 
+## 비관적 Lock (PESSIMISTIC)
+
+    비관적 Lock은 데이터베이스 레벨에서 제공하는 Lock을 의미한다.
+    주로 select for update 구문을 사용하면서 시작하며 Lock을 건다.
+    주로 PESSIMISTIC_WRITE 모드를 사용한다.

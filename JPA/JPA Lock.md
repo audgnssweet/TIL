@@ -5,12 +5,30 @@
 
     JPA에서 제공하는 Lock에는 2가지 종류가 있다.
     
-    1. 낙관적 Lock
-    2. 비관적 Lock
+    1. 낙관적 Lock (어플리케이션 레벨)
+    2. 비관적 Lock (데이터베이스 레벨)
 
     [참고]
-    기본적으로 Read-commited 격리수준과 Optimistic Lock 을 권장하고 (동시성)
-    정보가 매우중요한 경우에만 Pessimistic Lock을 사용하자.
+    기본적으로 JPA에서는 Read-commited 격리수준과 Optimistic Lock 을 권장한다.
+    
+    [참고]
+    MySQL은 디폴트로 repeatable-read
+    Oracle은 디폴트로 read-commited 를 사용한다.
+
+    [참고]
+    DB 자체의 트랜잭션 격리 수준과, @Transactional 붙인 어플리케이션 단에서의 트랜잭션은 다른 것이다.
+    어플리케이션단에서의 트랜잭션은 DB Connection Pool을 가지냐 마냐의 차이일 뿐이다ㅏ.
+
+    [중요]
+    결국 JPA의 낙관적 Lock과 비관적 Lock 의 가장 큰 차이점은
+    
+    낙관적 Lock의 경우 누가 먼저 commit을 했는지가 중요하고,
+    -> commit시점에서 버전체크를 해서, 누가 먼저 수정했다면 rollback하기 때문에
+    -> 여기에 LockMode.OPTIMISTIC 을 걸면, Read시에도 commit시 문제가 발생하기 때문에 Read도중에 버전 업데이트가 되더라도
+    에러를 터뜨려 이를 방지할 수 있다.
+
+    비관적 Lock의 경우 누가 먼저 Lock을 획득했는지가 중요하다.
+    -> Lock 걸린 상태면 다른 트랜잭션에서 commit을 쏘는 순간 해당 트랜잭션이 실패해버리기 때문에
 
     알아보자.
 
@@ -27,6 +45,8 @@
 
     비관적 락은 트랜잭션의 충돌이 발생한다고 가정하고 우선 DB에 Lock을 거는 방법이다.
     데이터베이스가 제공하는 Lock 기능을 사용한다.
+
+    주로 PESSIMISTIC_WRITE 를 사용한다.
 
     select for update (수정할거니까 건드리지마) 기능이 있다.
 
