@@ -49,6 +49,7 @@
         b. nginx로 reverse proxy를 해줄 것이기 때문에, location / {} 대괄호 안을 지우고
         아래 내용으로 채운다.
         
+                proxy_pass http://localhost:8080;
                 proxy_http_version 1.1;
                 proxy_set_header Upgrade $http_upgrade;
                 proxy_set_header Connection keep-alive;
