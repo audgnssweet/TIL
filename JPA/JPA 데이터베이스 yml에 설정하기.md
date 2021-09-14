@@ -26,6 +26,12 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         default_batch_fetch_size: 100
         format_sql: true
+
+logging:
+  level:
+    org.hibernate:
+      SQL: debug
+      type: trace
 ```
 
 #### MySQL 설정
@@ -64,3 +70,54 @@ spring:
     default_batch_fetch_size: Lazy Loading시 한번에 가져올 엔티티 수
 
     format_sql: SQL을 예쁘게
+
+    logging.level.org.hibernate.SQL: debug
+    -> debug 레벨까지의 log로 출력한다.
+
+    logging.level.org.hibernate.type: trace
+    -> ? 값들을 출력해준다.
+
+---
+
+#### 쿼리를 보여주는 p6spy Library
+
+```groovy
+implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
+```
+
+```java
+public class P6spySqlFormatConfig implements MessageFormattingStrategy {
+
+    @Override
+    public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared,
+        String sql, String url) {
+        sql = formatSql(category, sql);
+        return now + "|" + elapsed + "ms|" + category + "|connection " + connectionId + "|" + P6Util.singleLine(prepared) + sql;
+    }
+
+    private String formatSql(String category, String sql) {
+        if (sql == null || sql.trim().equals("")) return sql;
+
+        if (Category.STATEMENT.getName().equals(category)) {
+            String tmpsql = sql.trim().toLowerCase(Locale.ROOT);
+            if (tmpsql.startsWith("create") || tmpsql.startsWith("alter") || tmpsql.startsWith("comment")) {
+                sql = FormatStyle.DDL.getFormatter().format(sql);
+            } else {
+                sql = FormatStyle.BASIC.getFormatter().format(sql);
+            }
+            sql = "|\nHeFormatSql(P6Spy sql,Hibernate format):" + sql;
+        }
+
+        return sql;
+    }
+}
+
+@Configuration
+public class P6spyLogMessageFormatConfig {
+
+    @PostConstruct
+    public void setLogMessageFormat() {
+        P6SpyOptions.getActiveInstance().setLogMessageFormat(P6spySqlFormatConfig.class.getName());
+    }
+}
+```
