@@ -26,6 +26,7 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         default_batch_fetch_size: 100
         format_sql: true
+        use_sql_comments: true
 
 logging:
   level:
@@ -76,6 +77,9 @@ spring:
 
     logging.level.org.hibernate.type: trace
     -> ? 값들을 출력해준다.
+
+    use_sql_comments: true
+    -> JPQL 의 별칭 설정까지 볼 수 있다.
 
 ---
 
