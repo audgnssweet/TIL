@@ -24,7 +24,7 @@
     
     연관관계 없는 join (FK가 아닌 다른조건으로 join)은 두가지 경우다.
     1. 카테시안 곱으로 모든결과를 만들어서 where로 필터링할 때 (from에 여러개 나열)
-    2. 연관관계 없는 join이지만 outer join (left join) 을 활용해서 원하는 결과값을 얻어내고 싶을 때 (on절에서 FK 사용 안함)
+    2. 연관관계 없는 join이지만 inner join, outer join (left join) 을 활용해서 원하는 결과값을 얻어내고 싶을 때 (on절에서 FK 사용 안함)
     
     on 에 and로 여러개 조건을 명시할 수 있다.
 
