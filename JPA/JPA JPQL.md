@@ -107,6 +107,7 @@
     이는 SQL에서 (on 조건1 and 조건2) 로 붙는 것처럼 and뒤에 조건으로 붙는다.
 
     26-2. inner join으로 해결이 되는 것은 inner join으로, 안되면 outer join으로 가자.
+    -> join 중 성능이 가장 좋은 것이 inner join이다.
 
     27. 일대다 조인(컬렉션 조인)시 결과가 뻥튀기 될 때 결과를 getSingleResult() 로 받으면, 자동으로 필터링해서 한 개의 객체로
     만들어주지만, getResultList() 로 받으면 꼭 distinct를 붙여줘야 한다.
