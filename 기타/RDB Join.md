@@ -73,8 +73,10 @@
     left join이기 때문에 join에 실패한 row들은 null로 채우는 것.
 
     아래는 on의 잘못된 사용 예시이다. (잘못된건 아닐수도)
+    [TMI]
     일단 결론부터 말하면, PK와 FK 가 있다면 반드시 둘의 일치조건을 먼저 걸고, 그다음에 and로 조건을 추가하는 방식이
     어떤 의도이든 맞아들 확률이 높다.
+    또한 JPA의 JPQL, QueryDSL 에서는 PK와 FK 일치조건을 반드시 먼저 깔도록 되어있다.
 
 ![image](https://user-images.githubusercontent.com/19279163/133451672-714a93a2-fc4c-4e58-8abc-67688db566b3.png)
 
