@@ -103,8 +103,10 @@
 
     26. 일대다 조인은 결과가 뻥튀기되지만, 일대일, 다대일 조인은 아니다.
 
-    26-1. JPQL에서의 Join은 먼저 PK와 FK로 먼저 on조건을 걸어주고, 이외 조건은 on 키워드로 걸어주는데,
-    이는 SQL에서 (on 조건1 and 조건2) 로 붙는 것처럼 and뒤에 조건으로 붙는다.
+    26-1 연관관계 있는(FK) join (보통) vs. 연관관계 없는(일반칼럼) join
+    -> 있는 : select m, t from Member m left join m.team t on ~~~
+    -> 없는 카타시안 : select m, t from Member m, Team t
+    -> 없는 외부조인 : select m, t from Member m left join Team t on ~~~
 
     26-2. inner join으로 해결이 되는 것은 inner join으로, 안되면 outer join으로 가자.
     -> join 중 성능이 가장 좋은 것이 inner join이다.
