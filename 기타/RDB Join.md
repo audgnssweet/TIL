@@ -36,7 +36,9 @@
 
     inner join vs. left join (on m.team_id = t.team_id)
     inner join은 두 테이블을 비교하면서 team_id가 반드시 일치해야만 join을 실행하여 결과값으로 만든다.
-    left join은 left table이 member이기 때문에 
+    left join은 left table이 member이기 때문에 일단 member table을 다가져와서 결과로 만든다.
+    그리고 on 조건에서 join을 하냐 마냐로 나뉘기 때문에 id가 일치하는 멤버 옆에 team을 join해서 붙여준다.
+    null은 당연히 join이 안되는데, left join 특성상 이미 끌어왔기 때문에 join에 실패하면 null로 채운다.
 
     [정리]
     inner join 은 두 테이블을 on 조건에 맞게 붙여서 반환
@@ -67,12 +69,34 @@
     -> 일단 on 조건을 기준으로 join하기 때문에, PK, FK 기준으로 left join을 한 후 where로 필터링한다.
 
     on and 는
-    -> 먼저 
+    -> join을 하냐 마냐의 조건이 (on 조건1 and 조건2) 일때 조건1, 조건2를 만족해야 join을 하고,
+    left join이기 때문에 join에 실패한 row들은 null로 채우는 것.
 
+    아래는 on의 잘못된 사용 예시이다. (잘못된건 아닐수도)
+    일단 결론부터 말하면, PK와 FK 가 있다면 반드시 둘의 일치조건을 먼저 걸고, 그다음에 and로 조건을 추가하는 방식이
+    어떤 의도이든 맞아들 확률이 높다.
 
-
-![image](https://user-images.githubusercontent.com/19279163/133451612-b7169ddb-731b-4f17-8a2b-3cebe08bb3f1.png)
 ![image](https://user-images.githubusercontent.com/19279163/133451672-714a93a2-fc4c-4e58-8abc-67688db566b3.png)
-![image](https://user-images.githubusercontent.com/19279163/133451715-42e78877-245d-44d3-b7f0-b4067f55d4cc.png)
+
+    위 쿼리는 on절이 없으므로 카타시안 곱으로 테이블을 생성한 뒤에 조건에 맞춰 필터링한 것.
+    잘못된 사용이다.
+
+![image](https://user-images.githubusercontent.com/19279163/133471878-50a97739-a2de-4942-849a-3a170cbce42a.png)
+
+    위 쿼리도 어떤 의도로 사용되었는지는 모르겠지만 잘못된 쿼리일 가능성이 높다.
+    동작 방식은 이렇다. 
+    먼저 left join이므로 member의 모든 레코드를 전부 가져와서 왼쪽에 붙인다.
+    이제 join를 하는데, 그 조건이 m.team_id=1 인 경우이다. (member, left table에 대한 조건)
+    우리의 레코드에서 m.team_id=1 인 경우는 멤버 1,2 둘이 있다.
+    그런데 이외 조건 (team, right table 에 대한 조건) 이 없으므로 무지성으로 m.team_id=1인 멤버 오른쪽에
+    모든팀을 한번씩 다갖다가 join시켜버린다.
+    그래서 멤버 1,2는 각각 팀 3번까지의 레코드, 3,4,5는 한개 (join자체를 하지 않으므로) 가 되는 것이다.
+
 ![image](https://user-images.githubusercontent.com/19279163/133451736-9a666fe7-d879-4c0f-9179-d1f4fe16817e.png)
-![image](https://user-images.githubusercontent.com/19279163/133451753-04a305d6-4a5b-452d-b203-9b696c59fcee.png)
+
+    위 쿼리도 어떤 의도로 사용되었는지는 모르겠지만 잘못된 쿼리일 가능성이 높다.
+    동작 방식은 이렇다.
+    먼저 left join이므로 member의 모든 레코드를 전부 가져와서 왼쪽에 붙인다.
+    이제 join을 하는데, 그 조건이 t.team_id=1인 경우다. (team, right table에 대한 조건)
+    우리의 레코드에서 right table에 team_id=1인 경우는 team1밖에 없다.
+    이를 왼쪽에 이미 붙여져있는 모든 member record (left join이므로) 에 붙인다.
