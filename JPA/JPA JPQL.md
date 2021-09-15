@@ -106,6 +106,7 @@
     26-1 연관관계 있는(FK) join (보통) vs. 연관관계 없는(일반칼럼) join
     -> 있는 : select m, t from Member m left join m.team t on ~~~
     -> 없는 카타시안 : select m, t from Member m, Team t
+    -> 없는 내부조인 : select m, t from Member m, join Team t on ~~~
     -> 없는 외부조인 : select m, t from Member m left join Team t on ~~~
 
     26-2. inner join으로 해결이 되는 것은 inner join으로, 안되면 outer join으로 가자.
