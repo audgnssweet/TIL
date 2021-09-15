@@ -12,9 +12,18 @@
     M : N 연관관계의 경우 매핑 테이블을 하나 두는 것이 좋다.
     관리도 쉽고, 이력 추적이나, 새로운 비즈니스 요구사항들이 생겼을 때 테이블에 쉽게 추가하여 관리할 수 있다.
 
-#### FK는 가급적 nullable=false 옵션을 사용해라. (비즈니스적 요구사항이 있지 않는 경우)
+#### FK는 가급적 optional = false 옵션을 사용해라. - 연관관계의 주인 (비즈니스적 요구사항이 있지 않는 경우)
 
+    JPA의 기본 JOIN 전략은 OUTER JOIN이다.
+    그런데 성능면에서는 당연히 INNER JOIN이 좋다. 변경해주자.
+
+    ToOne 관계의 연관관계의 주인 필드에서는 두 가지 어노테이션이 반드시 붙는다.
+    @ManyToOne or OneToOne(optional=false)
+    @JoinColumn(nullable=false)
     
+    null을 허용할지, 그렇지 않을지는 위처럼 세팅할 수 있는데
+    이때 둘중 하나를 설정해주면 된다.
+    그런데 optional=false 옵션은 where절에 외래키 사용시에도 inner join을 실행하기 때문에 권장한다.
 
 #### OneToOne 연관관계에서 연관관계의 주인은, 더 많이 참조하는 쪽에서 해라.
 
