@@ -106,6 +106,8 @@
     26-1. JPQL에서의 Join은 먼저 PK와 FK로 먼저 on조건을 걸어주고, 이외 조건은 on 키워드로 걸어주는데,
     이는 SQL에서 (on 조건1 and 조건2) 로 붙는 것처럼 and뒤에 조건으로 붙는다.
 
+    26-2. inner join으로 해결이 되는 것은 inner join으로, 안되면 outer join으로 가자.
+
     27. 일대다 조인(컬렉션 조인)시 결과가 뻥튀기 될 때 결과를 getSingleResult() 로 받으면, 자동으로 필터링해서 한 개의 객체로
     만들어주지만, getResultList() 로 받으면 꼭 distinct를 붙여줘야 한다.
 
