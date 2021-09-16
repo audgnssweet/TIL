@@ -79,7 +79,7 @@ spring:
     -> ? 값들을 출력해준다.
 
     use_sql_comments: true
-    -> JPQL 의 별칭 설정까지 볼 수 있다.
+    -> SQL 말고 JPQL을 확인 가능하다.
 
 ---
 
