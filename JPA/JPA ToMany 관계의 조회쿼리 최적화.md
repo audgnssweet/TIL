@@ -1,3 +1,7 @@
+#### 이 글은 인프런 김영한 선생님의 JPA 활용2편을 듣고 정리한 글입니다.
+
+https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-API%EA%B0%9C%EB%B0%9C-%EC%84%B1%EB%8A%A5%EC%B5%9C%EC%A0%81%ED%99%94/dashboard
+
 ## JPA ToMany 관계의 조회쿼리 최적화
 
     ## JPA ToMany 관계 조회쿼리 최적화 
