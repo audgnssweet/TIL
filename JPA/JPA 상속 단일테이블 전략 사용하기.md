@@ -1,3 +1,7 @@
+#### 이 글은 인프런 김영한 선생님의 JPA1 강의를 보고 정리한 글입니다.
+
+https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-JPA-%ED%99%9C%EC%9A%A9-1/dashboard
+
 ## JPA 상속 단일테이블 전략 사용하기
 
     객체에는 상속 관계가 존재하지만, 데이터베이스 테이블에는 상속 관계가 없다.
