@@ -11,7 +11,7 @@
     -> -p (port) 옵션, --name 옵션, -d (background) 옵션, -e (env) 옵션,
 
     ps : docker ps [OPTIONS]
-    -> -a (all) 옵션
+    -> -a (all) 옵션2
 
     remove image : docker rmi [OPTIONS] IMAGE [IMAGE...]
 
@@ -19,6 +19,7 @@
     -> -f 옵션
 
     remove container : docker rm [OPTIONS] CONTAINER [CONTAINER...]
+    -> --force 옵션
 
     container에 명령 전달 : docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
     -> 옵션을 주지 않으면 단발성
