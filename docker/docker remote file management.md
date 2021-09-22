@@ -8,6 +8,8 @@
     Docker run시 -v (volume) 옵션을 주면 된다.
     -> Docker Docs에서는 [Bind mount a volume] 이라고 설명하고 있다.
 
+    중요한 점은, 이렇게 연결하면 host에서 파일을 수정하는 순간 바로 docker image에 반영된다.
+
 ---
 
 ### apache에 연동하기
