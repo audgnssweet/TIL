@@ -10,4 +10,14 @@
 
 ---
 
+### apache에 연동하기
+
     docker run -p 80:80 -v C:\Users\audgn\Downloads\htdocs/:/usr/local/apache2/htdocs/ myws
+
+---
+
+### Nginx에 연동하기
+
+    docker hub에 official image에 잘 설명이 되어있다.
+
+    docker run --name mynginx -p 80:80 -d -v C:\Users\audgn\dockerexam:/usr/share/nginx/html nginx
