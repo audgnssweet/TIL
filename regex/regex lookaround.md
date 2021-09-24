@@ -1,15 +1,21 @@
 <h2> REGEX lookaround </h2>
 
     lookaround 는 regex의 고급개념이다
+    단 후방탐색은 지원하지 않는 언어가 있으므로, 전방 탐색만 다루겠다.
 
-    positive는 일치, negative는 비일치
+    positive는 일치, negative는 비일치이다
 
-    lookahead는 먼저검사, lookbehind는 나중검사 라고 생각하면 된다.
+    전방 탐색
+    (?=) 일치
+    (?!) 비일치
+
+    전방탐색이란 탐색 방향이 -> 인 것을 의미한다.
+    원래 문자열을 탐색할 때의 방향과 같다.
 
 ---
 
-    1. Positive lookahead (?=)
-    
+    1. 긍정 전방탐색 (?=)
+
     (?=REGEX_1)REGEX_2
     우선 주어진 문자열을 REGEX_1과 매칭하는지 먼저 검사한다.
     그리고 REGEX_1과 일치 한다면, 일치되었던 결과를 버리고
