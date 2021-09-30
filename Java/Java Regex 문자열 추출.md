@@ -2,7 +2,7 @@
 
     1S2D+3T 에서
     1S, 2D+, 3T 셋으로 문자를 추출하고자 한다.
-    
+
     코드는 아래와 같다.
 
 ```java
@@ -11,7 +11,7 @@ Pattern pattern = Pattern.compile("(\\d+\\D+)");
 Matcher matcher = pattern.matcher(string);
 
 while (matcher.find()) {
-    System.out.println(matcher.group(1));
+    System.out.println(matcher.group());
 }
 
 ```
