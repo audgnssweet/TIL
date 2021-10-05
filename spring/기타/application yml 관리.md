@@ -24,7 +24,7 @@ spring:
 
     민감한 정보기 때문에 실제 배포환경에서는 해당 PC에 접속하여 환경변수를 세팅하거나 혹은 CD 툴을 통해서 세팅해준다.
 
-#### 프로필 나누기
+### 프로필 나누기
 
 ```yaml
 spring:
@@ -59,4 +59,31 @@ spring:
     2. 실제로 사용할 profile은 spring.profiles.active로 설정한다.
 
     [추가]
-    springboot가 실행될 때
+    springboot가 build되면 jar 파일이 생기는데 profile을 실행할 때 설정해줄 수 있다.
+    java -jar -Dspring.profiles.active=프로필이름 MY_PROJECT.jar
+
+### application yml 자체를 나누기
+
+```yaml
+//application.yml파일
+spring:
+  profiles:
+    include:
+      - db
+
+//application-db.yml
+spring:
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+```
+
+    설정할 것이 많아지면 application yml이 복잡해지고 길어진다. 이런 경우에 깔끔하게 분리하여 관리하면
+    유지보수에 유리하다.
+
+    1. application.yml 파일에 spring.profiles.include: - 로 여러 profile을 나열해준다.
+
+    2. profile 이름에 맞춰서 file을 만들고, 알맞는 설정을 넣어준다.
+    위에서는 include된 항목이 db였기 때문에 application-db.yml 이라는 이름으로 지어주었다.
