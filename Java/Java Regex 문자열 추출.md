@@ -21,3 +21,17 @@ while (matcher.find()) {
     매칭되는 것이 없을 때까지 계속 문자열을 추출해준다.
 
     이들은 모두 java.util 패키지에 속해있다.
+
+## 예시 2
+
+"//;\n1;2;3" 에서 ; 와 1;2;3을 따로 추출하려고 한다.
+
+```java
+        Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(expression);
+        if (matcher.find()) {
+            String customDelim = matcher.group(1);
+            String exp = matcher.group(2);
+        }
+```
+
+위처럼 Group 번호를 명시해줌으로써 -> 소괄호 안이 하나의 group 번호
