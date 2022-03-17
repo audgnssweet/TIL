@@ -15,7 +15,6 @@ Mockito란? 테스트시 Mocking 을 할 수 있도록 도와주는 라이브러
 
 ## 📌 mockito
     
-    
     mock 선언방법
     
     1. 단위 테스트시
@@ -79,18 +78,18 @@ Mockito란? 테스트시 Mocking 을 할 수 있도록 도와주는 라이브러
 ## 🎯 주의점 (이게 핵심)
 
 1. 코틀린에서의 문제점
+
+        자바는 어떤 타입이든 기본적으로 모두 null 을 허용하나, 코틀린은 null이 가능한것과 그렇지 않은 것을 엄격하게 구분한다.
     
-    자바는 어떤 타입이든 기본적으로 모두 null 을 허용하나, 코틀린은 null이 가능한것과 그렇지 않은 것을 엄격하게 구분한다.
+        그래서 코틀린에서 mocking 을 할 때, BDDMockito.any() 를 그냥 넣어주게되면
     
-    그래서 코틀린에서 mocking 을 할 때, BDDMockito.any() 를 그냥 넣어주게되면
+        any() 는 기본적으로 null 을 반환하기 때문에 NPE가 발생하는 것이다.
     
-    any() 는 기본적으로 null 을 반환하기 때문에 NPE가 발생하는 것이다.
+        이걸 해결하고자 공식문서를 보면, 분명히 BDDMockito.any(type) 이건 not null 인것을 반환한다고 하는데
     
-    이걸 해결하고자 공식문서를 보면, 분명히 BDDMockito.any(type) 이건 not null 인것을 반환한다고 하는데
+        그럼에도 불구하고 NPE가 난다. → ???? 머야 ;;
     
-    그럼에도 불구하고 NPE가 난다. → ???? 머야 ;;
-    
-    그래서 이걸 해결할 수 있는 방법은
+        그래서 이걸 해결할 수 있는 방법은
     
     ```kotlin
     protected fun <T> any(type: Class<T>): T {
@@ -102,13 +101,16 @@ Mockito란? 테스트시 Mocking 을 할 수 있도록 도와주는 라이브러
     왜인지는 모르겠다;
     
 2. 동작 방식의 차이
-    1. mockito
-        1. when().thenReturn()
-        2. doReturn().when()
-    2. BDDMockito
-        1. given().willReturn()
-        2. willReturn().given()
     
+        1. mockito
+            1. when().thenReturn()
+            2. doReturn().when()
+        2. BDDMockito
+            1. given().willReturn()
+            2. willReturn().given()
+    
+---
+
     둘 다에서 나타나는 점인데, a 와 b 의 가장 큰 차이점은 Spy / SpyBean를 사용할 때 나타난다. 
     실제로 코드가 동작이 되냐 안되냐의 차이점이다.
     
